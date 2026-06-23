@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>MK体育 · 赛事资料与信息索引</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; }
+        body { background: #f8f9fc; color: #1d2b3e; line-height: 1.6; }
+        a { color: #1a6eb5; text-decoration: none; font-weight: 500; }
+        a:hover { color: #0f4b7a; text-decoration: underline; text-underline-offset: 3px; }
+
+        /* 深色头图 hero */
+        .hero {
+            background: linear-gradient(145deg, #0b1929 0%, #1a2f44 100%);
+            color: #eef2f7;
+            padding: 5rem 1.5rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20px; left: 0; right: 0;
+            height: 60px;
+            background: #f8f9fc;
+            border-radius: 50% 50% 0 0 / 30px 30px 0 0;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+        }
+        .hero h1 i {
+            font-style: normal;
+            background: #e0a13b;
+            color: #0b1929;
+            padding: 0 12px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 680px;
+            margin: 0.5rem auto 1.8rem;
+            opacity: 0.8;
+        }
+        .hero .sub-meta {
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+            opacity: 0.6;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 1.5rem;
+            display: inline-block;
+        }
+
+        /* 主内容区浅色 */
+        .container {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 2.8rem 1.5rem 3.5rem;
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 500;
+            border-left: 5px solid #1a6eb5;
+            padding-left: 1rem;
+            margin-bottom: 1.8rem;
+            color: #14273e;
+        }
+
+        /* 优势区 — 卡片网格 */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.8rem 1.5rem;
+            box-shadow: 0 8px 26px rgba(0, 20, 30, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 32px rgba(0, 20, 40, 0.10);
+        }
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 0.7rem;
+            color: #1d2b3e;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card h3::before {
+            content: '◆';
+            color: #1a6eb5;
+            font-size: 1rem;
+        }
+        .card p {
+            font-size: 0.95rem;
+            color: #3a4c62;
+        }
+
+        /* 说明区 — 信息索引段落 */
+        .info-section {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+            border: 1px solid #e8ecf2;
+        }
+        .info-section p {
+            margin-bottom: 1rem;
+        }
+        .info-section strong {
+            color: #0a2942;
+        }
+
+        /* FAQ 摘要（折叠风格摘要） */
+        .faq-block {
+            margin: 2.5rem 0 2rem;
+        }
+        .faq-item {
+            background: #ffffff;
+            border: 1px solid #e5eaf0;
+            border-radius: 14px;
+            padding: 1.2rem 1.6rem;
+            margin-bottom: 0.9rem;
+        }
+        .faq-item h4 {
+            font-weight: 500;
+            font-size: 1.05rem;
+            color: #1a2f44;
+            margin-bottom: 0.2rem;
+        }
+        .faq-item h4::before {
+            content: 'Q. ';
+            color: #1a6eb5;
+            font-weight: 600;
+        }
+        .faq-item p {
+            color: #3f556b;
+            font-size: 0.95rem;
+            margin-top: 0.3rem;
+            padding-left: 1.6rem;
+        }
+
+        /* 底部链接 */
+        .footer-links {
+            border-top: 1px solid #dae0e9;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.2rem;
+            font-size: 0.9rem;
+            color: #546e84;
+        }
+        .footer-links .ref {
+            display: flex;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+        }
+        .footer-links .copy {
+            opacity: 0.65;
+        }
+
+        /* 响应式 */
+        @media (max-width: 680px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            .container { padding: 1.8rem 1rem 2.5rem; }
+            .grid-cards { gap: 1.2rem; }
+            .info-section { padding: 1.8rem 1.2rem; }
+            .faq-item { padding: 1rem 1.2rem; }
+        }
+
+        /* 极简强调色装饰 */
+        .accent-dot { color: #1a6eb5; }
+    </style>
+</head>
+<body>
+
+    <!-- Hero 深色头图 -->
+    <section class="hero">
+        <h1>MK体育 <i>索引</i></h1>
+        <p>赛事资料、联赛结构与信息聚合 · 从整理出发</p>
+        <div class="sub-meta">聚焦数据 ｜ 中立信息场 ｜ 持续更新</div>
+    </section>
+
+    <!-- 主体内容 -->
+    <div class="container">
+
+        <!-- 优势区：资料整理角度 -->
+        <h2 class="section-title">为什么需要信息索引</h2>
+        <div class="grid-cards">
+            <div class="card">
+                <h3>结构化聚合</h3>
+                <p>将分散的联赛、杯赛、球队基础资料按时间线及分类梳理，减少信息噪音，便于查阅与交叉对比。</p>
+            </div>
+            <div class="card">
+                <h3>动态维护</h3>
+                <p>赛季更替、规则微调、阵容变动——资料库跟随公开信息更新，保持基础数据的时效性。</p>
+            </div>
+            <div class="card">
+                <h3>可溯源性</h3>
+                <p>每个数据点尽可能标注来源或参考依据，方便进阶使用者进行二次验证与深度分析。</p>
+            </div>
+        </div>
+
+        <!-- 说明区：切入角度 信息索引 & 内容场景 -->
+        <div class="info-section">
+            <h3 style="font-weight:500; font-size:1.3rem; margin-bottom:1rem;">资料索引 · 应用场景</h3>
+            <p><strong>赛事档案</strong> —— 主流足球、篮球及部分小众运动的历史赛季成绩、夺冠记录、历届最佳射手/球员等汇总，以赛季为维度建立卡片式索引。适合快速回顾某联赛十年脉络。</p>
+            <p><strong>规则与术语</strong> —— 不同项目常见规则、计分差异以及特有术语简释。例如足球越位演变、篮球进攻时间规则沿革。减少因术语模糊导致的理解偏差。</p>
+            <p><strong>统计参考</strong> —— 球队/运动员关键生涯数据、系列赛交锋记录、里程碑事件。所有数字均来自公开统计平台并标明统计口径。不包含倾向性评价。</p>
+            <p style="margin-top:1rem; background: #f0f4fa; padding:0.7rem 1rem; border-radius:10px; font-size:0.9rem;">
+                ⚡ 若您希望直接查找当前赛季积分、即时赛程或机构资讯，可参考 <a href="https://mobile-portal-mk.com">MK体育</a> 提供的整合入口。信息索引与工具页面互补，各自侧重不同维度。
+            </p>
+        </div>
+
+        <!-- FAQ 摘要（三个典型） -->
+        <h2 class="section-title" style="margin-top:1rem;">常见问题摘要</h2>
+        <div class="faq-block">
+            <div class="faq-item">
+                <h4>资料更新频率如何？</h4>
+                <p>基础赛季数据在每阶段结束后48小时内校对入库；规则类内容随官方公报更新。重大赛事期间索引页每周刷新一次。</p>
+            </div>
+            <div class="faq-item">
+                <h4>是否包含实时比分或赔率？</h4>
+                <p>本索引侧重历史统计与结构梳理，不提供实时比分。实时动态可经由 <a href="https://mobile-portal-mk.com">MK体育</a> 的移动端模块获取。</p>
+            </div>
+            <div class="faq-item">
+                <h4>数据来源可靠吗？</h4>
+                <p>所有材料均汇总自联赛官方、协会公开文档或权威统计网站。每一份资料页均附参考列表，便于您追溯原始数据。</p>
+            </div>
+        </div>
+
+        <!-- 底部链接 -->
+        <div class="footer-links">
+            <div class="ref">
+                <a href="https://mobile-portal-mk.com">MK体育</a>
+                <span style="color:#8a9bb0;">资料索引</span>
+                <span style="color:#8a9bb0;">使用指南</span>
+            </div>
+            <div class="copy">信息整理 · 非官方 · 仅供学习参考</div>
+        </div>
+
+    </div>
+
+</body>
+</html>
